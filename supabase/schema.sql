@@ -124,6 +124,9 @@ as $$
 declare v_user uuid := auth.uid(); v_book public.books; v_loan public.loans;
 begin
   if v_user is null then raise exception 'Please sign in first.'; end if;
+  perform pg_advisory_xact_lock(hashtext(v_user::text));
+  if exists(select 1 from public.loans where user_id=v_user and book_id=p_book_id and returned_at is null)
+    then raise exception 'You already have this title on loan.'; end if;
   if (select count(*) from public.loans where user_id=v_user and returned_at is null) >= 4
     then raise exception 'Borrowing limit reached (4 books).'; end if;
   select * into v_book from public.books where id=p_book_id for update;
