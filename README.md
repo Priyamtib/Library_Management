@@ -1,41 +1,39 @@
 # AURELIA — The Library Club
 
-A polished, responsive library experience built with **HTML, CSS, JavaScript, Java and Kotlin**.
+A polished, responsive library-management showcase built using **all five required technologies: HTML, CSS, JavaScript, Java and Kotlin**.
 
-## Experience
-- Student overview with borrowing, due-date, reading and request summaries.
-- Searchable catalogue with genre filters, sorting, book details and saved titles.
-- Borrowing and returning with a 14-day due date and a four-book limit.
-- Reading history and member book requests.
-- A lightweight librarian desk for adding titles, reviewing requests and checking inventory.
+## What the showcase does
+- Student dashboard with borrowing, due-date, reading and request summaries.
+- Searchable book catalogue with genre filters, sorting, book details and saved titles.
+- Borrow and return workflow with 14-day due dates and a four-book borrowing limit.
+- Personal bookshelf, reading history and book suggestions.
+- Librarian desk to add titles, review requests and view inventory.
 - Responsive layout, accessible controls, subtle motion and a dark reading theme.
 
-## Run the web experience
-Open `index.html` in a modern browser, or publish the repository with GitHub Pages. No build step or package installation is required.
+## The five technologies — and exactly where they are used
 
-## Technology modules
-| Technology | Role |
-|---|---|
-| HTML | Semantic application structure |
-| CSS | Responsive visual system, layout, animation and themes |
-| JavaScript | Interactive UI, catalogue, loan workflow and browser persistence |
-| Java | Standalone typed library domain model and console demonstration |
-| Kotlin | Standalone Kotlin library companion with matching borrowing rules |
+| Required technology | Where it is used | Responsibility |
+|---|---|---|
+| **HTML** | `index.html` | Semantic page structure, navigation, forms, catalogue sections and dialogs |
+| **CSS** | `assets/css/styles.css` | Complete visual design, responsive layouts, animations and light/dark themes |
+| **JavaScript** | `assets/js/app.js` | Browser interactions, searching/filtering, borrowing/returns, requests and local persistence |
+| **Java** | `java/LibraryManager.java` | Typed library domain model, catalogue search, borrowing limits, due dates and returns |
+| **Kotlin** | `kotlin/LibraryConsole.kt` | Kotlin implementation of the library domain workflow, including search, borrowing and returns |
 
-## Backend and authentication
-The browser app includes an optional Supabase integration for email/password authentication, shared catalogue data, per-member loans, requests, saved books and librarian-only collection/request management. Borrowing and returns use PostgreSQL functions so copy counts update on the database, and Row Level Security restricts each member's records.
+Java and Kotlin are runnable companion modules demonstrating the same core library rules. The website runs in the browser using HTML, CSS and JavaScript; the Java and Kotlin console modules are separate demonstrations, not server processes.
 
-**The live backend is not connected until you configure a Supabase project.**
-1. Create a Supabase project and enable Email authentication.
-2. Run the complete `supabase/schema.sql` file in the Supabase SQL Editor.
-3. Open `assets/js/supabase-config.js` and enter your Project URL and anon/publishable key. These are browser-safe values; never use the `service_role` secret in this repository.
-4. To grant librarian access, run the following in SQL Editor, replacing the email:
-   `update public.profiles p set role = 'librarian' from auth.users u where p.id = u.id and u.email = 'LIBRARIAN_EMAIL';`
-5. Sign up or sign in from the app. Until Supabase is configured, the interface remains available in clearly labelled local-demo mode using this browser's storage.
+## Run the website
+Open `index.html` in a modern browser, or publish the repository with GitHub Pages. No build step, database, API key or package installation is required.
 
-New accounts default to the `member` role and cannot promote themselves. Java and Kotlin remain standalone console modules; they are not connected to the web backend.
+## Demo behaviour and data
+This is intentionally a **frontend showcase**, not a production library deployment:
+- The browser stores demo data in `localStorage`, so changes remain after refresh on the same browser/device.
+- Demo profile name, saved books, loans, returns, requests and librarian edits are local to that browser.
+- There is no real account authentication, shared database, cross-device sync or institutional access control.
+- Use the **Librarian desk** navigation item to demonstrate adding books and processing requests.
 
 ## Run the Java module
+With a JDK installed:
 ```bash
 javac java/LibraryManager.java
 java -cp java LibraryManager
@@ -55,7 +53,6 @@ java -jar aurelia-kotlin.jar
 ├── assets/
 │   ├── css/styles.css
 │   └── js/app.js
-├── supabase/schema.sql
 ├── java/LibraryManager.java
 ├── kotlin/LibraryConsole.kt
 └── README.md
